@@ -1,595 +1,487 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Result Portal for LSC Batch 01/2025, SAAB Recruit Training Center Hyderabad" />
-  <meta name="keywords" content="SAAB, RTC Hyderabad, LSC Batch, Result Portal" />
-  <title>LSC Batch 01/2025 – SAAB, RTC Hyderabad Result Portal</title>
-
-  <!-- Fonts & Icons -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>LSC Batch 02/2025 — Admit Card Portal</title>
+  <meta name="description" content="Admit Card Download Portal — LSC Batch 02/2025" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
   <style>
-    :root {
-      --primary: #1e40af;
-      --secondary: #1e293b;
-      --bg: #0f172a;
-      --text: #f3f4f6;
+    :root{
+      --primary: #0f172a;
       --accent: #f59e0b;
+      --muted: #94a3b8;
+      --card: #0b1220;
       --white: #ffffff;
-      --error: #ef4444;
       --success: #10b981;
-      --font: 'Poppins', sans-serif;
+      --danger: #ef4444;
+      --glass: rgba(255,255,255,0.04);
+      --radius: 12px;
+      font-family: 'Poppins', sans-serif;
+    }
+    *{box-sizing: border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background: linear-gradient(180deg,#07112a 0%, #071428 60%);
+      color:var(--white);
+      display:flex;
+      align-items:flex-start;
+      justify-content:center;
+      padding:28px;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    .container{
+      width:100%;
+      max-width:980px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:var(--radius);
+      overflow:hidden;
+      box-shadow: 0 10px 40px rgba(2,6,23,0.6);
+      border:1px solid rgba(255,255,255,0.03);
     }
 
-    body {
-      font-family: var(--font);
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      padding: 20px;
+    .header{
+      background: linear-gradient(135deg,#0b2a6b, #07103a);
+      padding:22px 28px;
+      display:flex;
+      gap:20px;
+      align-items:center;
     }
-
-    .container {
-      max-width: 960px;
-      width: 100%;
-      margin: 20px auto;
-      background: rgba(30, 41, 59, 0.9);
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-      backdrop-filter: blur(8px);
-      padding-bottom: 20px;
+    .brand {
+      display:flex; gap:14px; align-items:center;
     }
-
-    .header {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      padding: 30px;
-      text-align: center;
-      color: var(--white);
+    .logo{
+      width:84px; height:84px; border-radius:10px; background:linear-gradient(180deg,#0f172a,#0a1b3d);
+      display:flex; align-items:center; justify-content:center; font-weight:700; font-size:18px;
+      border:1px solid rgba(255,255,255,0.05);
     }
+    .titles h1{margin:0; font-size:1.25rem; letter-spacing:0.4px}
+    .titles p{margin:0; color:var(--muted); font-size:0.9rem}
 
-    .header img {
-      height: 90px;
-      margin-bottom: 12px;
-      object-fit: contain;
-      loading: lazy;
-    }
-
-    .header h1 {
-      font-size: 2rem;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-    }
-
-    .header h2 {
-      font-size: 1.1rem;
-      font-weight: 500;
-      opacity: 0.9;
-    }
-
-    .subtitle {
-      background: var(--accent);
-      color: var(--white);
-      margin: 20px;
-      padding: 10px;
-      text-align: center;
-      font-size: 1.1rem;
-      font-weight: 600;
-      border-radius: 6px;
-    }
-
-    .search-container {
-      padding: 20px;
-      text-align: center;
-    }
-
-    .search-container input {
-      width: 100%;
-      max-width: 320px;
-      padding: 12px;
-      font-size: 1rem;
-      border: 2px solid var(--primary);
-      border-radius: 6px;
-      background: var(--white);
-      transition: border-color 0.3s, box-shadow 0.3s;
-    }
-
-    .search-container input:focus {
-      outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 8px rgba(245, 158, 11, 0.3);
-    }
-
-    .search-container button {
-      margin: 10px 0;
-      padding: 12px 24px;
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--white);
-      background: var(--primary);
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
-    }
-
-    .search-container button:hover {
-      background: #1e3a8a;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    }
-
-    .loading-spinner {
-      display: none;
-      border: 4px solid #f3f3f3;
-      border-top: 4px solid var(--accent);
-      border-radius: 50%;
-      width: 24px;
-      height: 24px;
-      animation: spin 1s linear infinite;
-      margin: 10px auto;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    .result-container {
-      padding: 20px;
-      display: none;
-      animation: fadeIn 0.5s ease-in;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .result-summary {
-      text-align: center;
-      margin-bottom: 20px;
-      font-size: 1.1rem;
-      font-weight: 600;
-    }
-
-    .result-card {
-      background: var(--white);
-      color: #111827;
-      padding: 24px;
-      border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .info-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 16px;
-      margin-bottom: 20px;
-    }
-
-    .info-grid p {
-      font-size: 0.95rem;
-      line-height: 1.4;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.9rem;
-      margin-bottom: 20px;
-      overflow-x: auto;
-      display: block;
-    }
-
-    th, td {
-      padding: 10px;
-      border: 1px solid #d1d5db;
-      text-align: left;
-    }
-
-    th {
-      background: #f3f4f6;
-      font-weight: 600;
-      color: #1f2937;
-    }
-
-    tfoot tr {
-      background: #f9fafb;
-      font-weight: 600;
-    }
-
-    .action-buttons {
-      text-align: center;
-      margin-top: 20px;
-    }
-
-    .action-buttons button {
-      margin: 8px;
-      padding: 12px 24px;
-      font-size: 1rem;
-      border-radius: 6px;
-      font-weight: 600;
-      cursor: pointer;
-      border: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: all 0.3s;
-    }
-
-    .btn-print {
-      background: var(--primary);
-      color: var(--white);
-    }
-
-    .btn-print:hover {
-      background: #1e3a8a;
-      transform: translateY(-2px);
-    }
-
-    .btn-pdf {
-      background: var(--white);
-      color: var(--primary);
-      border: 2px solid var(--primary);
-    }
-
-    .btn-pdf:hover {
-      background: var(--primary);
-      color: var(--white);
-      transform: translateY(-2px);
-    }
-
-    .error-message {
-      text-align: center;
-      color: var(--error);
-      font-weight: 500;
-      padding: 10px;
-    }
-
-    .retry-btn {
-      background: var(--accent);
-      color: var(--white);
-      padding: 8px 16px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-
-    .retry-btn:hover {
-      background: #d97706;
-    }
-
-    .theme-toggle {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: var(--white);
-      color: var(--primary);
-      border: 2px solid var(--primary);
-      padding: 8px;
-      border-radius: 50%;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    .theme-toggle:hover {
-      background: var(--primary);
-      color: var(--white);
-    }
-
-    .footer {
-      background: var(--bg);
-      padding: 15px;
-      text-align: center;
-      font-size: 0.9rem;
-      color: #9ca3af;
-    }
-
-    .footer .developer-credit {
+    .subtitle{
+      padding:12px 20px;
+      background: linear-gradient(90deg, rgba(245,158,11,0.15), rgba(245,158,11,0.07));
       color: var(--accent);
-      font-weight: 600;
+      font-weight:600;
+      text-align:center;
     }
 
-    /* Light Mode */
-    body.light-mode {
-      --bg: #f3f4f6;
-      --text: #1f2937;
-      --secondary: #ffffff;
+    .content{padding:22px;}
+    .search-wrap{display:flex; gap:12px; flex-wrap:wrap; align-items:center; justify-content:center; margin-bottom:14px;}
+    .input {
+      background:var(--glass);
+      border:1px solid rgba(255,255,255,0.04);
+      padding:12px 14px;
+      border-radius:8px;
+      color:var(--white);
+      width:320px;
+      max-width:100%;
+      font-size:1rem;
+    }
+    .btn {
+      padding:11px 16px;
+      border-radius:8px;
+      border:none;
+      cursor:pointer;
+      font-weight:600;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-size:0.98rem;
+    }
+    .btn-primary{
+      background:linear-gradient(180deg,#1e3a8a,#163172);
+      color:var(--white);
+      box-shadow: 0 6px 18px rgba(2,6,23,0.6);
+    }
+    .btn-ghost{
+      background:transparent;
+      color:var(--accent);
+      border:1px solid rgba(245,158,11,0.18);
     }
 
-    body.light-mode .container {
-      background: rgba(255, 255, 255, 0.9);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    .info {
+      margin-top:18px;
+      display:flex;
+      gap:18px;
+      align-items:flex-start;
+      justify-content:space-between;
+      flex-wrap:wrap;
     }
 
-    body.light-mode .result-card {
-      background: #f9fafb;
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:10px;
+      padding:18px;
+      width:100%;
+      box-shadow: 0 4px 20px rgba(2,6,23,0.5);
+      border:1px solid rgba(255,255,255,0.03);
     }
 
-    @media print {
-      body {
-        background: var(--white) !important;
-        color: #000 !important;
-        padding: 0 !important;
-      }
+    .message {
+      text-align:center;
+      padding:18px;
+      color:var(--muted);
+      font-weight:600;
+    }
+    .error { color: var(--danger); }
+    .ok { color: var(--success); }
 
-      .header, .subtitle, .search-container, .action-buttons, .footer, .theme-toggle {
-        display: none !important;
-      }
+    .result-head{display:flex; gap:12px; align-items:center; margin-bottom:12px;}
+    .result-head .icon{font-size:1.6rem}
+    .meta-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:10px; margin-bottom:12px}
+    .meta{background:rgba(255,255,255,0.02); padding:10px; border-radius:8px; font-weight:600; color:var(--white)}
+    .actions{display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:8px}
 
-      .result-container {
-        display: block !important;
-      }
+    .small{font-size:0.9rem; color:var(--muted)}
 
-      .result-card {
-        border: none;
-        padding: 0;
-        box-shadow: none;
-        font-size: 10pt;
-      }
-
-      table {
-        font-size: 10pt;
-      }
+    .footer{
+      padding:14px 18px;
+      text-align:center;
+      color:var(--muted);
+      font-size:0.88rem;
     }
 
-    @media (max-width: 768px) {
-      .container {
-        margin: 10px;
-        padding-bottom: 10px;
-      }
+    .loading {
+      width:20px; height:20px; border-radius:50%;
+      border:3px solid rgba(255,255,255,0.08);
+      border-top:3px solid var(--accent);
+      animation:spin 1s linear infinite;
+      display:inline-block;
+    }
+    @keyframes spin{to{transform:rotate(360deg)}}
 
-      .header img {
-        height: 70px;
-      }
+    /* print adjustments for admit card download (download link only) */
+    @media print{ .header,.subtitle,.search-wrap,.footer{display:none} }
 
-      .header h1 {
-        font-size: 1.5rem;
-      }
-
-      .header h2 {
-        font-size: 0.95rem;
-      }
-
-      .search-container input {
-        max-width: 100%;
-      }
-
-      .search-container button {
-        width: 100%;
-      }
-
-      table {
-        display: block;
-        overflow-x: auto;
-        white-space: nowrap;
-      }
+    @media (max-width:600px){
+      .brand .logo{width:60px;height:60px}
+      .titles h1{font-size:1rem}
     }
   </style>
 </head>
 <body>
-  <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme">
-    <i class="fas fa-moon"></i>
-  </button>
-
-  <div class="container">
-    <div class="header">
-      <img src="SAAB_RTC_Logo-removebg-preview.png" alt="SAAB RTC Logo" />
-      <h1>SHAHEED ABDUL AZIZ BULLO</h1>
-      <h2>RECRUIT TRAINING CENTER HYDERABAD</h2>
-    </div>
-
-    <div class="subtitle">Final Result of LSC Batch 01/2025</div>
-
-    <div class="search-container">
-      <input
-        type="text"
-        id="cnic"
-        placeholder="Enter CNIC (e.g., 42201-1234567-9)"
-        aria-label="Enter CNIC number"
-        oninput="formatCNICInput(this)"
-        maxlength="15"
-      />
-      <button onclick="checkResult()" aria-label="Search Result">
-        <i class="fas fa-search"></i> Check Result
-      </button>
-      <div class="loading-spinner" id="loadingSpinner"></div>
-    </div>
-
-    <div class="result-container" id="resultContainer">
-      <div class="result-summary" id="resultSummary" style="display: none;">
-        <i class="fas fa-check-circle" style="color: var(--success); font-size: 1.5rem;"></i>
-        <p style="font-weight: 600; color: var(--text);">Result Status: <span id="statusText"></span></p>
+  <div class="container" role="main" aria-labelledby="pageTitle">
+    <header class="header">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">
+          LSC
+        </div>
+        <div class="titles">
+          <h1 id="pageTitle">LSC Batch 02/2025 — Admit Card Portal</h1>
+          <p>Recruit Training Center — Hyderabad</p>
+        </div>
       </div>
-    </div>
+      <div style="margin-left:auto; text-align:right;">
+        <small class="small">System by: <strong>Mohsin Ali Jamali</strong></small>
+      </div>
+    </header>
+
+    <div class="subtitle">Admit Card Distribution — Use CNIC to find and download</div>
+
+    <main class="content" aria-live="polite">
+      <div class="search-wrap" role="search" aria-label="Search admit card">
+        <input id="cnicInput" class="input" type="text" inputmode="numeric"
+               placeholder="Enter CNIC — 42201-1234567-9" maxlength="15" aria-label="Enter CNIC" />
+
+        <button id="searchBtn" class="btn btn-primary" title="Search by CNIC">
+          <i class="fas fa-search"></i> Search
+        </button>
+
+        <!-- Manual quick lookup by Roll No (fallback / convenience) -->
+        <input id="rollInput" class="input" type="text" placeholder="Or enter Roll No (e.g. 277)" style="width:160px" />
+        <button id="rollBtn" class="btn btn-ghost" title="Open by Roll No">
+          <i class="fas fa-id-badge"></i> Open by Roll
+        </button>
+      </div>
+
+      <div id="resultArea" class="info">
+        <div class="card" id="cardMain">
+          <div id="status" class="message">Enter CNIC above and press <strong>Search</strong>. (Admit cards must be uploaded to <code>/admitcards/</code> with names like <code>277-Asif Raza.pdf</code>.)</div>
+        </div>
+      </div>
+    </main>
 
     <div class="footer">
-      <div class="developer-credit">
-        System Developed by: Mohsin Ali Jamali (Exam Branch SAAB, RTC HYD)
-      </div>
+      <div>Good luck to all trainees — LSC Batch 02/2025</div>
     </div>
   </div>
 
   <script>
-    const API = "https://sheetdb.io/api/v1/sh871nkwz39y0";
+    /*******************************************
+     * CONFIG - set your SheetDB API here
+     *******************************************/
+    const SHEETDB_API = "https://sheetdb.io/api/v1/sh871nkwz39y0"; // replace if different
+    const ADMIT_FOLDER = "/admitcards/"; // must be on same origin for HEAD-check to work
 
-    function normalizeCNIC(cnic) {
-      return cnic.replace(/\D/g, '');
+    /*******************************************
+     * Helpers
+     *******************************************/
+    function normalizeCNIC(raw) {
+      return (raw || "").replace(/\D/g, "");
     }
 
-    function formatCNICInput(input) {
-      let value = input.value.replace(/\D/g, '');
-      if (value.length > 5) value = value.slice(0, 5) + '-' + value.slice(5);
-      if (value.length > 13) value = value.slice(0, 13) + '-' + value.slice(13);
-      input.value = value.slice(0, 15);
+    function formatCNICDisplay(cnicDigits) {
+      if (!cnicDigits) return "";
+      const d = cnicDigits.replace(/\D/g, "");
+      if (d.length !== 13) return cnicDigits;
+      return `${d.slice(0,5)}-${d.slice(5,12)}-${d.slice(12)}`;
     }
 
-    function formatCNIC(cnic) {
-      const cleaned = normalizeCNIC(cnic);
-      return cleaned.length === 13
-        ? ${cleaned.slice(0, 5)}-${cleaned.slice(5, 12)}-${cleaned.slice(12)}
-        : cnic;
+    function sanitizeFilename(name){
+      // keep human-readable spaces, but encode for URL
+      return encodeURIComponent(name).replace(/%20/g, " ");
     }
 
-    async function checkResult() {
-      const cnicInput = document.getElementById("cnic");
-      const cnic = cnicInput.value.trim();
-      const cleaned = normalizeCNIC(cnic);
-      const resultContainer = document.getElementById("resultContainer");
-      const loadingSpinner = document.getElementById("loadingSpinner");
-      const resultSummary = document.getElementById("resultSummary");
-      resultContainer.innerHTML = "";
-      resultContainer.style.display = "block";
-      loadingSpinner.style.display = "block";
-      resultSummary.style.display = "none";
+    function showMessage(html, type = '') {
+      const status = document.getElementById("status");
+      status.className = "message";
+      if (type === "error") status.classList.add("error");
+      if (type === "ok") status.classList.add("ok");
+      status.innerHTML = html;
+    }
 
+    function buildAdmitFilename(roll, name) {
+      // Build filename exactly as you upload: "ROLL-Name.pdf"
+      // Trim excessive spaces
+      const cleanName = (name || "").trim().replace(/\s+/g, ' ');
+      return `${roll}-${cleanName}.pdf`;
+    }
+
+    async function checkFileExists(url) {
+      try {
+        // Try HEAD first (fast, no body)
+        const res = await fetch(url, { method: "HEAD", cache: "no-cache" });
+        return res.ok;
+      } catch (err) {
+        // HEAD might be blocked by CORS; return null to indicate unknown
+        return null;
+      }
+    }
+
+    /*******************************************
+     * Main search logic: search by CNIC using SheetDB
+     *******************************************/
+    document.getElementById("searchBtn").addEventListener("click", checkByCNIC);
+    document.getElementById("cnicInput").addEventListener("keypress", (e) => {
+      if (e.key === "Enter") checkByCNIC();
+    });
+
+    // Manual roll button (fallback) - constructs link from roll and tries to open (no SheetDB)
+    document.getElementById("rollBtn").addEventListener("click", async () => {
+      const roll = (document.getElementById("rollInput").value || "").trim();
+      if (!roll) {
+        showMessage("Please enter a Roll No to open admit card.", "error");
+        return;
+      }
+      // Create a filename pattern: try to find file starting with roll (cannot read directory on static server)
+      // We assume file named like `ROLL-First Last.pdf`. We'll try a HEAD request for a guessed filename
+      // If you have standard naming pattern, you can put exact name here.
+      showMessage(`<div style="display:flex;gap:10px;align-items:center;justify-content:center"><span class="loading"></span> Looking for admit card for roll <strong>${roll}</strong>...</div>`);
+      // Without name we cannot build exact filename; so we will attempt a simple pattern: roll.pdf and roll-Name.pdf is unknown.
+      // First try roll.pdf
+      const try1 = ADMIT_FOLDER + encodeURIComponent(roll) + ".pdf";
+      let exists = await checkFileExists(try1);
+      if (exists === true) {
+        openAdmitLink(try1, `${roll}.pdf`, true);
+        return;
+      }
+      // If HEAD returned null (CORS), we will still open a link to ADMIT_FOLDER + roll + '.pdf' and inform user to verify
+      if (exists === null) {
+        showMessage(`Cannot verify file existence due to server CORS. Opening a best-effort link. If not found, upload admit card as <code>${roll}-Name.pdf</code> in <code>/admitcards/</code>.`);
+        window.open(try1, "_blank");
+        return;
+      }
+      // Not found
+      showMessage(`Admit card not found for roll <strong>${roll}</strong>. Please ensure file is uploaded as <code>${roll}-Name.pdf</code> in <code>/admitcards/</code>.`, "error");
+    });
+
+    async function checkByCNIC(){
+      const cnicInput = document.getElementById("cnicInput");
+      const raw = cnicInput.value.trim();
+      const cleaned = normalizeCNIC(raw);
       if (cleaned.length !== 13) {
-        resultContainer.innerHTML = <p class="error-message">Please enter a valid 13-digit CNIC.</p>;
+        showMessage("Please enter a valid 13-digit CNIC (e.g., 42201-1234567-9).", "error");
         cnicInput.focus();
-        loadingSpinner.style.display = "none";
         return;
       }
 
-      try {
-        const response = await fetch(API, { headers: { 'Cache-Control': 'no-cache' } });
-        if (!response.ok) throw new Error('Network response was not ok');
-        const data = await response.json();
-        const trainee = data.find(
-          (record) => normalizeCNIC(record["CNIC"] || record["CNIC:"]) === cleaned
-        );
+      showMessage(`<div style="display:flex;gap:10px;align-items:center;justify-content:center"><span class="loading"></span> Searching for CNIC <strong>${formatCNICDisplay(cleaned)}</strong>…</div>`);
 
-        loadingSpinner.style.display = "none";
+      try {
+        // Query SheetDB for the record whose CNIC matches (SheetDB returns an array)
+        // We use a simple fetch to the API and search client-side to be resilient to field names.
+        const resp = await fetch(SHEETDB_API, { cache: "no-cache" });
+        if (!resp.ok) throw new Error("Unable to fetch records from SheetDB.");
+        const data = await resp.json();
+
+        // Find a record where any CNIC-like field matches (strip non-digits)
+        const trainee = data.find(rec => {
+          // try common keys with flexible casing
+          const possibleKeys = Object.keys(rec);
+          for (let key of possibleKeys) {
+            const val = (rec[key] || "").toString();
+            if (val.replace(/\D/g,'') === cleaned) return true;
+          }
+          return false;
+        });
 
         if (!trainee) {
-          resultContainer.innerHTML = <p class="error-message">No record found for CNIC: ${formatCNIC(cnic)}</p>;
+          showMessage(`No trainee found for CNIC <strong>${formatCNICDisplay(cleaned)}</strong>. Please verify CNIC or use Roll No.`, "error");
           return;
         }
 
-        resultSummary.style.display = "block";
-        const statusIcon = document.querySelector("#resultSummary i");
-        const statusText = document.getElementById("statusText");
-        statusText.textContent = trainee.Result;
-        statusIcon.className = trainee.Result === "Pass"
-          ? "fas fa-check-circle"
-          : "fas fa-times-circle";
-        statusIcon.style.color = trainee.Result === "Pass" ? "var(--success)" : "var(--error)";
+        // Obtain roll & name fields - try common column labels used previously
+        const rollKeys = ["ROLL / SEAT NO", "ROLL/SEAT NO", "ROLL_NO", "ROLL", "Roll", "Roll No", "roll"];
+        const nameKeys = ["NAME", "Name", "name", "TRAINEE NAME", "TRAINEE"];
 
-        const subjects = [
-          "Legal Knowledge",
-          "CrPC & Police Rules",
-          "PPW & Forensic Sci",
-          "General Knowledge",
-          "Investigation",
-          "Operation",
-          "Security",
-          "Intelligence",
-          "Module 01 to 20",
-          "English Language & Professional Skills",
-          "Prade & Drill",
-          "Physical & Fitness",
-          "Musketry & Firing",
-          "Discipline",
-          "Viva Voce"
-        ];
+        let roll = null, name = null;
+        for (let k of rollKeys) if (trainee[k]) { roll = String(trainee[k]).trim(); break; }
+        for (let k of nameKeys) if (trainee[k]) { name = String(trainee[k]).trim(); break; }
 
-        let output = `<div id="resultCard" class="result-card">
-          <div class="info-grid">
-            <p><strong>Roll No:</strong> ${trainee["ROLL / SEAT NO"]}</p>
-            <p><strong>Rank & B.No:</strong> ${trainee["RANK & B.No"]}</p>
-            <p><strong>Name:</strong> ${trainee.NAME}</p>
-            <p><strong>Father's Name:</strong> ${trainee["FATHER'S NAME"]}</p>
-            <p><strong>CNIC:</strong> ${formatCNIC(cnic)}</p>
-            <p><strong>Arrival Dist/Unit:</strong> ${trainee["ARRIVAL DIST. /UNIT"]}</p>
-          </div>
-
-          <table>
-            <thead>
-              <tr>
-                <th>Subject</th>
-                <th>Marks</th>
-              </tr>
-            </thead>
-            <tbody>`;
-
-        subjects.forEach((subject) => {
-          if (trainee[subject]) {
-            output += <tr><td>${subject}</td><td>${trainee[subject]}</td></tr>;
+        if (!roll) {
+          // fallback: maybe there is a 'RANK & B.No' containing roll at start
+          if (trainee["RANK & B.No"]) {
+            const val = String(trainee["RANK & B.No"]);
+            const match = val.match(/\d+/);
+            if (match) roll = match[0];
           }
-        });
+        }
+        if (!name) {
+          // fallback to concatenating first/last if available
+          if (trainee["FATHER'S NAME"]) name = String(trainee["NAME"] || trainee["NAME "] || "").trim();
+        }
 
-        output += `</tbody>
-          <tfoot>
-            <tr><th>Total</th><td>${trainee.Total}</td></tr>
-            <tr><th>Percentage</th><td>${trainee.Percentage}%</td></tr>
-            <tr><th>Grade</th><td>${trainee.GRADE}</td></tr>
-            <tr><th>Result</th><td>${trainee.Result}</td></tr>
-          </tfoot>
-        </table>
-      </div>
+        if (!roll || !name) {
+          // still missing - show found data for manual upload guidance
+          let html = `<div class="result-head"><i class="fas fa-exclamation-triangle icon" style="color:var(--accent)"></i><div><strong>Partial record found</strong></div></div>`;
+          html += `<div class="small">We found a record for this CNIC but couldn't detect both roll number and name automatically. Please check the SheetDB columns.</div>`;
+          html += `<pre style="margin-top:10px; background:rgba(255,255,255,0.02); padding:10px; border-radius:8px; color:var(--muted)">${JSON.stringify(trainee, null, 2)}</pre>`;
+          showMessage(html, "error");
+          return;
+        }
 
-      <div class="action-buttons">
-        <button class="btn-print" onclick="window.print()" aria-label="Print Result">
-          <i class="fas fa-print"></i> Print Result
-        </button>
-        <button class="btn-pdf" onclick="downloadPDF()" aria-label="Download PDF">
-          <i class="fas fa-file-pdf"></i> Download PDF
-        </button>
-      </div>`;
+        // Build filename and check existence
+        const filename = buildAdmitFilename(roll, name); // human readable
+        const encodedURL = ADMIT_FOLDER + encodeURIComponent(filename);
 
-        resultContainer.innerHTML = output;
+        // Try HEAD to check existence
+        let exists = await checkFileExists(encodedURL);
+        if (exists === true) {
+          // Show details and download button
+          const html = `
+            <div class="result-head">
+              <i class="fas fa-id-card icon" style="color:var(--accent)"></i>
+              <div>
+                <div style="font-weight:700">${name}</div>
+                <div class="small">Roll No: <strong>${roll}</strong> • CNIC: <strong>${formatCNICDisplay(cleaned)}</strong></div>
+              </div>
+            </div>
+            <div class="meta-grid">
+              <div class="meta">Arrival/Unit: ${trainee["ARRIVAL DIST. /UNIT"] || trainee["ARRIVAL DIST/UNIT"] || "—"}</div>
+              <div class="meta">Rank/B.No: ${trainee["RANK & B.No"] || "—"}</div>
+              <div class="meta">Status: <span style="color:var(--success); font-weight:700">Admit Card Ready</span></div>
+            </div>
+            <div class="actions">
+              <a class="btn btn-primary" href="${encodedURL}" target="_blank" rel="noopener" download
+                 title="Download Admit Card">
+                <i class="fas fa-download"></i> Download Admit Card
+              </a>
+              <button class="btn btn-ghost" onclick="openAdmitLink('${encodedURL}','${filename}', true)">
+                <i class="fas fa-eye"></i> Open in new tab
+              </button>
+              <button class="btn" style="background:transparent;color:var(--muted)" onclick="copyLink('${encodedURL}')">
+                <i class="fas fa-link"></i> Copy Link
+              </button>
+            </div>
+            <div class="small" style="margin-top:10px">If the file does not open, check that <code>/admitcards/${filename}</code> exists on the server.</div>
+          `;
+          showMessage(html, "ok");
+          return;
+        }
+
+        if (exists === false) {
+          // Not found: offer guidance and a fallback link (manual)
+          const html = `
+            <div class="result-head">
+              <i class="fas fa-times-circle icon" style="color:var(--danger)"></i>
+              <div>
+                <div style="font-weight:700">${name}</div>
+                <div class="small">Roll No: <strong>${roll}</strong> • CNIC: <strong>${formatCNICDisplay(cleaned)}</strong></div>
+              </div>
+            </div>
+            <div style="margin-top:8px" class="small">Admit card not found on server as <code>${filename}</code>.</div>
+            <div class="actions" style="margin-top:12px">
+              <button class="btn btn-ghost" onclick="alert('Please upload the file as ${filename} into the /admitcards/ folder on your server.')">
+                <i class="fas fa-upload"></i> Upload Missing File
+              </button>
+              <a class="btn" style="background:transparent;color:var(--muted)" href="${ADMIT_FOLDER + encodeURIComponent(filename)}" target="_blank" rel="noopener">
+                <i class="fas fa-link"></i> Try open link anyway
+              </a>
+            </div>
+          `;
+          showMessage(html, "error");
+          return;
+        }
+
+        // exists === null (couldn't verify HEAD due to CORS)
+        const html = `
+          <div class="result-head">
+            <i class="fas fa-question-circle icon" style="color:var(--accent)"></i>
+            <div>
+              <div style="font-weight:700">${name}</div>
+              <div class="small">Roll No: <strong>${roll}</strong> • CNIC: <strong>${formatCNICDisplay(cleaned)}</strong></div>
+            </div>
+          </div>
+          <div class="small">Unable to verify file existence due to server restrictions (CORS). Click the link below to attempt opening the admit card. If it fails, ensure file is uploaded as <code>${filename}</code> inside <code>/admitcards/</code>.</div>
+          <div class="actions" style="margin-top:12px">
+            <a class="btn btn-primary" href="${encodedURL}" target="_blank" rel="noopener" download><i class="fas fa-download"></i> Open Admit Card</a>
+            <button class="btn btn-ghost" onclick="alert('If opening fails, check server file: /admitcards/${filename}')">Help</button>
+          </div>
+        `;
+        showMessage(html, "ok");
+
       } catch (err) {
-        console.error("Error fetching result:", err);
-        loadingSpinner.style.display = "none";
-        resultContainer.innerHTML = <p class="error-message">Error loading results. <button class="retry-btn" onclick="checkResult()">Retry</button></p>;
+        console.error(err);
+        showMessage("Error contacting SheetDB. Please ensure your API URL is correct and the server is reachable. You can also use the Roll No quick-open as a fallback.", "error");
       }
     }
 
-    function downloadPDF() {
-      const element = document.getElementById("resultCard");
-      if (!element) {
-        alert("Result not loaded.");
-        return;
+    function openAdmitLink(url, filename, newTab = false) {
+      // Helper to open admit file. If newTab true open new tab.
+      if (newTab) {
+        window.open(url, "_blank", "noopener");
+      } else {
+        window.location.href = url;
       }
-      const opt = {
-        margin: 0.5,
-        filename: Trainee_Result_${new Date().toISOString().split('T')[0]}.pdf,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, backgroundColor: '#fff' },
-        jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
-      };
-      html2pdf().set(opt).from(element).save();
     }
 
-    function toggleTheme() {
-      document.body.classList.toggle("light-mode");
-      const icon = document.querySelector(".theme-toggle i");
-      icon.className = document.body.classList.contains("light-mode")
-        ? "fas fa-sun"
-        : "fas fa-moon";
+    function copyLink(url) {
+      navigator.clipboard?.writeText(url).then(() => {
+        alert("Link copied to clipboard.");
+      }).catch(() => {
+        prompt("Copy this link:", url);
+      });
     }
 
-    // Add Enter key support for search
-    document.getElementById("cnic").addEventListener("keypress", (event) => {
-      if (event.key === "Enter") {
-        checkResult();
-      }
+    // CNIC input formatting - adds dashes while typing
+    const cnicEl = document.getElementById("cnicInput");
+    cnicEl.addEventListener("input", (e) => {
+      let v = e.target.value.replace(/\D/g,'');
+      if (v.length > 5) v = v.slice(0,5) + '-' + v.slice(5);
+      if (v.length > 13+1) v = v.slice(0,13+1); // limit with dashes
+      if (v.length > 13+1 && v.length <= 15) v = v.slice(0,13) + '-' + v.slice(13);
+      // Reformat robustly:
+      v = v.replace(/(^\d{5})(\d{7})(\d{1}$)/, '$1-$2-$3');
+      e.target.value = v.slice(0,15);
     });
+
+    // Optional: prefill with test CNIC in dev (comment out in production)
+    // cnicEl.value = "42201-1234567-9";
+
   </script>
 </body>
 </html>
