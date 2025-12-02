@@ -1,164 +1,872 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Exam Branch Portal for SAAB RTC Hyderabad - Download Admit Cards and Marks Certificates for LSC Batches 21, 22 and RC Batches 28, 29 (2025)." />
-  <meta name="keywords" content="SAAB RTC, Exam Branch, Admit Card, Marks Certificate, Hyderabad, LSC Batch, RC Batch" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="SAAB RTC Hyderabad — Admit Card & Marks Certificate Portal (EN / اردو)" />
   <meta name="author" content="Mohsin Ali Jamali" />
-  <title>SAAB RTC Hyderabad - Exam Branch Portal</title>
-  <link rel="icon" type="image/png" href="favicon.png" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <style>
-    :root {
-      --primary: #1e40af;
-      --secondary: #1e293b;
-      --bg: #0f172a;
-      --text: #f3f4f6;
-      --accent: #f59e0b;
-      --accent-secondary: #60a5fa;
-      --white: #ffffff;
-      --error: #ef4444;
-      --success: #10b981;
-      --font: 'Poppins', sans-serif;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: var(--font);
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      padding: 20px;
-      font-size: 16px;
-    }
-    .container {
-      max-width: 960px;
-      width: 100%;
-      margin: 20px auto;
-      background: rgba(30, 41, 59, 0.9);
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-      backdrop-filter: blur(8px);
-      padding-bottom: 20px;
-      animation: fadeIn 1s ease-in;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .header {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      padding: 30px;
-      text-align: center;
-      color: var(--white);
-      position: relative;
-    }
-    .header::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.4);
-      z-index: 0;
-    }
-    .header > * { position: relative; z-index: 1; }
-    .header img { height: 90px; margin-bottom: 12px; object-fit: contain; loading: lazy; }
-    .header h1 { font-size: 2.5rem; font-weight: 700; margin-bottom: 8px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); }
-    .header h2 { font-size: 1.3rem; font-weight: 400; opacity: 0.9; }
-    .welcome-note {
-      background: rgba(255, 255, 255, 0.1);
-      margin: 20px;
-      padding: 15px;
-      border-radius: 6px;
-      text-align: center;
-      font-size: 1rem;
-      line-height: 1.8;
-      border-left: 4px solid var(--accent);
-    }
-    .welcome-note h3 { font-size: 1.2rem; font-weight: 600; margin-bottom: 10px; }
-    .tabs { display: flex; justify-content: center; margin: 20px 0; }
-    .tab-button {
-      padding: 10px 20px;
-      background: var(--primary);
-      color: var(--white);
-      border: none;
-      cursor: pointer;
-      margin: 0 5px;
-      border-radius: 6px;
-      transition: all 0.3s;
-    }
-    .tab-button.active {
-      background: var(--accent);
-      transform: scale(1.05);
-    }
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
-    .search-container { padding: 20px; text-align: center; }
-    .input-wrapper { position: relative; max-width: 320px; margin: 0 auto; }
-    .search-container select, .search-container input {
-      width: 100%;
-      max-width: 320px;
-      padding: 12px;
-      font-size: 1rem;
-      border: 2px solid var(--primary);
-      border-radius: 6px;
-      background: var(--white);
-      color: #000;
-      margin-bottom: 10px;
-    }
-    .search-container select:focus, .search-container input:focus {
-      outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 8px rgba(245, 158, 11, 0.3);
-    }
-    .search-container input.valid { border-color: var(--success); }
-    .search-container input.invalid { border-color: var(--error); }
-    .help-icon {
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: var(--accent);
-      color: var(--white);
-      border-radius: 50%;
-      width: 20px;
-      height: 20px;
-      text-align: center;
-      line-height: 20px;
-      cursor: help;
-      font-size: 14px;
-    }
-    .search-container button {
-      margin: 10px 5px;
-      padding: 12px 24px;
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--white);
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    .search-container button.download-btn {
-      background: linear-gradient(135deg, var(--primary), var(--accent-secondary));
-    }
-    .search-container button.download-btn:hover {
-      background: linear-gradient(135deg, #1e3a8a, #3b82f6);
-      transform: scale(1.05) translateY(-2px);
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
-    }
-    .search-container button.print-btn {
-      background: linear-gradient(135deg, var(--success), #34d399);
-    }
-    .search-container button.print-btn:hover {
-      background: linear-gradient(135deg, #059669, #34d399);
-      transform: scale(1.05) translate
+  <title>SAAB RTC Hyderabad - Result Portal</title>
 
+  <!-- Poppins (UI) + Noto Nastaliq Urdu fallback (for Urdu if Jameel not available) -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* If you have Jameel Noori Nastaleeq font file, place it at ./fonts/JameelNooriNastaleeq.ttf
+       The browser will use it for Urdu text. Otherwise Noto Nastaliq from Google Fonts will be used. */
+    @font-face {
+      font-family: "JameelNooriNastaleeq";
+      src: url("./fonts/JameelNooriNastaleeq.ttf") format("truetype");
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root{
+      --primary:#0f172a;        /* background */
+      --card:#0b1220; 
+      --navy:#0f1d40;          /* header gradient start */
+      --navy-2:#12243f;        /* header gradient end */
+      --accent:#f59e0b;        /* yellow */
+      --accent-2:#60a5fa;      /* blue accent */
+      --muted:#9ca3af;
+      --white:#ffffff;
+      --success:#10b981;
+      --error:#ef4444;
+      --glass: rgba(255,255,255,0.03);
+      --glass-2: rgba(255,255,255,0.04);
+      --max-width: 1000px;
+      --radius: 12px;
+      --font-ui: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      --font-urdu: "JameelNooriNastaleeq", "Noto Nastaliq Urdu", serif;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(14,42,92,0.55), transparent 10%),
+                  radial-gradient(900px 500px at 90% 90%, rgba(3,105,161,0.22), transparent 12%),
+                  var(--primary);
+      color:var(--white);
+      font-family:var(--font-ui);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:28px;
+      display:flex;
+      justify-content:center;
+      align-items:flex-start;
+    }
+
+    .wrap{
+      width:100%;
+      max-width:var(--max-width);
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:16px;
+      overflow:hidden;
+      box-shadow: 0 18px 60px rgba(2,6,23,0.6);
+      animation:fadeIn .7s ease;
+    }
+    @keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+    /* HEADER */
+    header.app-header{
+      padding:20px 22px;
+      display:flex;
+      align-items:center;
+      gap:18px;
+      background:linear-gradient(135deg,var(--navy),var(--navy-2));
+    }
+    .brand{
+      display:flex;
+      gap:14px;
+      align-items:center;
+      flex:1;
+      min-width:0;
+    }
+    .brand img{
+      height:78px;
+      width:78px;
+      object-fit:contain;
+      border-radius:8px;
+      background:rgba(255,255,255,0.06);
+      padding:8px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+    }
+    .brand .title{
+      min-width:0;
+      overflow:hidden;
+    }
+    .brand h1{
+      font-size:1.25rem;
+      margin:0;
+      letter-spacing:0.6px;
+      font-weight:700;
+    }
+    .brand p{
+      margin:4px 0 0 0;
+      color:var(--glass-2);
+      font-size:0.86rem;
+      font-weight:500;
+    }
+
+    /* Right header controls */
+    .header-controls{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .lang-toggle{
+      display:flex;
+      align-items:center;
+      gap:6px;
+      background:rgba(255,255,255,0.04);
+      border-radius:999px;
+      padding:6px;
+      box-shadow: inset 0 -1px 0 rgba(255,255,255,0.02);
+    }
+    .lang-btn{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      padding:8px 12px;
+      border-radius:999px;
+      cursor:pointer;
+      user-select:none;
+      font-weight:600;
+      font-size:0.92rem;
+      color:var(--muted);
+      transition:all .18s ease;
+    }
+    .lang-btn.active{
+      background:linear-gradient(90deg,var(--accent),var(--accent-2));
+      color:var(--primary);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+    }
+    .lang-flag{
+      font-size:1.05rem;
+      line-height:1;
+    }
+
+    /* Subtitle bar */
+    .subtitle{
+      margin:18px;
+      padding:12px 16px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-left:4px solid var(--accent);
+      border-radius:10px;
+      font-weight:600;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .subtitle .left{display:flex;flex-direction:column;}
+    .subtitle h3{ margin:0; font-size:1rem; }
+    .subtitle small{ color:var(--muted); font-size:0.86rem }
+
+    /* Main grid */
+    .main{
+      display:grid;
+      grid-template-columns: 1fr 360px;
+      gap:18px;
+      padding:20px;
+    }
+
+    /* Left (search card) */
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.018), rgba(255,255,255,0.012));
+      border-radius:var(--radius);
+      padding:18px;
+      box-shadow: 0 8px 30px rgba(3,7,18,0.45);
+      border: 1px solid rgba(255,255,255,0.02);
+    }
+
+    .search-card .card-title{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:8px;
+      margin-bottom:12px;
+    }
+    .search-card .card-title h4{ font-size:1.05rem; margin:0 }
+    .search-card .card-title small{ color:var(--muted); font-size:0.85rem }
+
+    .form-row{ display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-top:10px }
+    .form-row .control{
+      flex:1 1 240px;
+    }
+    select, input[type="text"]{
+      width:100%;
+      padding:11px 12px;
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.02);
+      color:var(--white);
+      font-size:0.96rem;
+      font-weight:500;
+      transition:box-shadow .12s ease, border-color .12s ease;
+    }
+    select:focus, input:focus { outline:none; box-shadow: 0 8px 28px rgba(2,6,23,0.45); border-color: rgba(255,255,255,0.08); }
+
+    .doc-type{
+      display:flex;
+      gap:10px;
+      padding:10px;
+      background:rgba(255,255,255,0.02);
+      border-radius:10px;
+      align-items:center;
+      margin-top:12px;
+    }
+    .doc-type label{
+      cursor:pointer;
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      padding:8px 10px;
+      border-radius:8px;
+      font-weight:600;
+      color:var(--muted);
+      transition:all .14s ease;
+    }
+    .doc-type input{ display:none; }
+    .doc-type input:checked + span{
+      color:var(--primary);
+      background:linear-gradient(90deg,var(--accent),var(--accent-2));
+      padding:6px 10px;
+      border-radius:6px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+    }
+
+    .actions{
+      display:flex;
+      gap:10px;
+      margin-top:14px;
+      flex-wrap:wrap;
+    }
+    .btn{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      padding:10px 14px;
+      border-radius:10px;
+      font-weight:700;
+      cursor:pointer;
+      border:0;
+      transition:transform .12s ease, box-shadow .12s ease;
+      user-select:none;
+    }
+    .btn:active{ transform:translateY(1px) }
+    .btn.download{ background: linear-gradient(90deg,var(--navy-2),var(--accent-2)); color:var(--white); box-shadow: 0 10px 26px rgba(17,24,39,0.6); }
+    .btn.print{ background: linear-gradient(90deg,var(--success), #34d399); color:var(--white); box-shadow: 0 10px 26px rgba(6,95,70,0.25); }
+    .btn.help{ background:transparent; color:var(--muted); border:1px solid rgba(255,255,255,0.03); }
+
+    .btn svg{ width:18px; height:18px; }
+
+    /* Loading */
+    .loader{
+      display:inline-block;
+      width:26px;
+      height:26px;
+      border-radius:50%;
+      border:3px solid rgba(255,255,255,0.08);
+      border-top-color:var(--accent);
+      animation:spin .85s linear infinite;
+    }
+    @keyframes spin{ to{ transform:rotate(360deg) } }
+
+    .message{
+      margin-top:12px;
+      padding:10px 12px;
+      border-radius:8px;
+      font-weight:600;
+      font-size:0.95rem;
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      min-height:44px;
+    }
+    .msg-error{ background: rgba(239,68,68,0.09); color:var(--error); border:1px solid rgba(239,68,68,0.12) }
+    .msg-success{ background: rgba(16,185,129,0.07); color:var(--success); border:1px solid rgba(16,185,129,0.12) }
+    .msg-info{ background: rgba(96,165,250,0.06); color:var(--accent-2); border:1px solid rgba(96,165,250,0.08) }
+
+    /* Right column: stats & notice */
+    .side{
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+
+    .stats{
+      padding:12px;
+      border-radius:12px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border:1px solid rgba(255,255,255,0.02);
+    }
+    .stats h4{ margin:0 0 8px 0; font-size:1rem }
+    .stat-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:8px;
+    }
+    .stat{
+      padding:10px;
+      border-radius:8px;
+      background:rgba(255,255,255,0.015);
+      text-align:center;
+    }
+    .stat strong{ display:block; font-size:1.05rem }
+    .small-muted{ color:var(--muted); font-size:0.86rem }
+
+    .notice{
+      padding:12px;
+      border-radius:12px;
+      background: linear-gradient(90deg, rgba(245,158,11,0.06), rgba(255,255,255,0.01));
+      border-left:4px solid var(--accent);
+      font-family: var(--font-urdu);
+      direction: rtl;
+      text-align: right;
+      line-height:1.6;
+    }
+    .notice strong{ color:var(--navy-2); font-weight:800 }
+
+    /* help modal */
+    .modal-backdrop{
+      position:fixed;
+      inset:0;
+      background:rgba(2,6,23,0.6);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      z-index:1200;
+      padding:20px;
+    }
+    .modal{
+      width:100%;
+      max-width:720px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:12px;
+      padding:18px;
+      box-shadow:0 18px 60px rgba(2,6,23,0.8);
+    }
+
+    /* footer */
+    footer.app-footer{
+      margin:20px;
+      padding:14px;
+      text-align:center;
+      color:var(--muted);
+      font-size:0.9rem;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:center;
+    }
+    .footer-left{ display:flex; gap:12px; align-items:center; }
+    .developer-credit{ font-weight:700; color:var(--accent) }
+
+    /* Print rules */
+    @media print{
+      body{ background:white; color:black }
+      .wrap{ box-shadow:none; background:transparent; border-radius:0; }
+      header.app-header, .subtitle, .side, .modal-backdrop, footer.app-footer, .doc-type, .lang-toggle, .btn.help { display:none !important; }
+      .card{ border: none; box-shadow:none; background:transparent; padding:0; }
+      .search-card .card-title h4{ font-size:1.05rem; }
+    }
+
+    /* Responsive */
+    @media (max-width:980px){
+      .main{ grid-template-columns: 1fr; padding:18px; }
+      .side{ order:2 }
+      .subtitle{ margin:18px }
+      header.app-header{ flex-direction:column; align-items:flex-start; gap:12px; padding:18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap" role="application" aria-label="SAAB RTC Result Portal">
+    <header class="app-header">
+      <div class="brand" aria-hidden="false">
+        <img src="file (1) (1).png" alt="SAAB RTC Logo" />
+        <div class="title">
+          <h1 id="brand-title">SHAHEED ABDUL AZIZ BULLO</h1>
+          <p id="brand-sub">RECRUIT TRAINING CENTER HYDERABAD</p>
+        </div>
+      </div>
+
+      <div class="header-controls">
+        <!-- small verification seal -->
+        <div style="display:flex;align-items:center;gap:8px;margin-right:6px;">
+          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" aria-hidden="true" title="Verified">
+            <circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.12)" stroke-width="1.6"></circle>
+            <path d="M9.5 12.5l1.8 1.8L15 11" stroke="var(--accent)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+
+        <!-- Language toggle (Option C: flags) -->
+        <div class="lang-toggle" role="tablist" aria-label="Language toggle">
+          <div class="lang-btn active" id="btn-en" role="tab" aria-selected="true" tabindex="0" data-lang="en">
+            <span class="lang-flag">🇬🇧</span><span style="font-size:0.95rem">EN</span>
+          </div>
+          <div class="lang-btn" id="btn-ur" role="tab" aria-selected="false" tabindex="0" data-lang="ur">
+            <span class="lang-flag">🇵🇰</span><span style="font-size:0.95rem">اردو</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="subtitle" role="region" aria-label="subtitle">
+      <div class="left">
+        <h3 id="subtitle-title">Result & Admit Card Portal</h3>
+        <small id="subtitle-sub">Final Result of LSC Batch 01/2025 — Print friendly</small>
+      </div>
+      <div class="small-muted" id="last-updated">Last updated: <strong id="updated-date">—</strong></div>
+    </div>
+
+    <main class="main" id="main-area">
+      <!-- Left search card -->
+      <section class="card search-card" aria-labelledby="search-title">
+        <div class="card-title">
+          <div>
+            <h4 id="search-title">Find Your Admit Card / Marks</h4>
+            <small id="search-sub" class="small-muted">Select batch, enter CNIC and download or print</small>
+          </div>
+          <div class="small-muted" style="font-size:0.85rem">Portal v1.2</div>
+        </div>
+
+        <div class="form-row" role="form" aria-label="search form">
+          <!-- Batch select -->
+          <div class="control">
+            <label for="batch" id="lbl-batch" style="display:block;font-weight:600;margin-bottom:8px;color:var(--muted);font-size:0.86rem">Batch</label>
+            <select id="batch" aria-labelledby="lbl-batch">
+              <option value=""><?/* bilingual placeholder updated via JS */?></option>
+              <optgroup label="Lower School Course">
+                <option value="LSC-02">LSC Batch-02/2025</option>
+                <option value="LSC-03">LSC Batch-03/2025</option>
+              </optgroup>
+              <optgroup label="Recruit Course">
+                <option value="RC-02">RC Batch-02/2025</option>
+              </optgroup>
+            </select>
+          </div>
+
+          <!-- doc type -->
+          <div class="control" style="min-width:200px;">
+            <label style="display:block;font-weight:600;margin-bottom:8px;color:var(--muted);font-size:0.86rem" id="lbl-doc">Document</label>
+            <div class="doc-type" role="radiogroup" aria-labelledby="lbl-doc">
+              <label>
+                <input type="radio" name="doctype" value="admitcards" checked />
+                <span>Admit Card</span>
+              </label>
+              <label>
+                <input type="radio" name="doctype" value="certificates" />
+                <span>Marks Certificate</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- CNIC -->
+          <div class="control" style="flex-basis:100%">
+            <label for="rollNo" id="lbl-cnic" style="display:block;font-weight:600;margin-bottom:8px;color:var(--muted);font-size:0.86rem">CNIC</label>
+            <input type="text" id="rollNo" inputmode="numeric" placeholder="12345-6789102-3" maxlength="15" aria-labelledby="lbl-cnic" />
+          </div>
+        </div>
+
+        <div class="actions" role="group" aria-label="actions">
+          <button class="btn download" id="btnDownload" title="Download">
+            <!-- download icon -->
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 3v12" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M8 11l4 4 4-4" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M21 21H3" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span id="btnDownloadText">Download</span>
+          </button>
+
+          <button class="btn print" id="btnPrint" title="Print">
+            <!-- print icon -->
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M6 9V3h12v6" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              <rect x="4" y="13" width="16" height="8" rx="2" stroke="white" stroke-width="1.6"/>
+            </svg>
+            <span id="btnPrintText">Print</span>
+          </button>
+
+          <button class="btn help" id="btnHelp" title="How to use">
+            <!-- help icon -->
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 18h.01" stroke="var(--muted)" stroke-width="1.6" stroke-linecap="round"/>
+              <path d="M8.5 9a3.5 3.5 0 116 2.9c0 1.6-1.8 2.1-2.5 2.7" stroke="var(--muted)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke="var(--muted)" stroke-width="1.2"/>
+            </svg>
+            <span id="btnHelpText">How to use</span>
+          </button>
+
+          <div id="spinnerArea" style="display:flex;align-items:center;margin-left:auto">
+            <div id="loader" style="display:none" class="loader" role="status" aria-hidden="true"></div>
+          </div>
+        </div>
+
+        <div id="messageArea" aria-live="polite" style="margin-top:12px"></div>
+      </section>
+
+      <!-- Right column -->
+      <aside class="side">
+        <div class="stats card" aria-label="stats">
+          <h4 id="stats-title">Batch Overview</h4>
+          <div class="stat-grid">
+            <div class="stat">
+              <div class="small-muted">Total Trainees</div>
+              <strong id="stat-total">47</strong>
+            </div>
+            <div class="stat">
+              <div class="small-muted">Admit Cards</div>
+              <strong id="stat-admit">47</strong>
+            </div>
+            <div class="stat">
+              <div class="small-muted">Certificates</div>
+              <strong id="stat-cert">47</strong>
+            </div>
+            <div class="stat">
+              <div class="small-muted">Printed Today</div>
+              <strong id="stat-printed">3</strong>
+            </div>
+          </div>
+          <div style="margin-top:10px" class="small-muted">Search history and query logs available for admins only.</div>
+        </div>
+
+        <div class="notice card" id="noticeUrdu" role="note">
+          <strong>اہم اطلاع:</strong><br />
+          لوئر اسکول کورس بیج <strong>LSC/03/2025</strong> کی مارک شیٹس فائنل امتحانات کے بعد گریجویشن کی تاریخ کو آن لائن دستیاب ہوں گی۔<br />
+          براہِ کرم اسی پورٹل سے اپنی مارک شیٹ اس دن <strong>ڈاؤن لوڈ یا پرنٹ</strong> کریں۔<br />
+          <div style="margin-top:8px;font-size:0.9rem;color:var(--muted);direction:ltr;text-align:left">
+            For support: <a href="mailto:mohsinhyd16@gmail.com" style="color:var(--accent);text-decoration:none">mohsinhyd16@gmail.com</a> | +92-306-0384231
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <footer class="app-footer">
+      <div class="footer-left">
+        <div class="developer-credit">System Developed by: Mohsin Ali Jamali (SAAB, RTC HYD)</div>
+        <div class="small-muted"> | </div>
+        <div class="small-muted">Your CNIC is used only for verification. Data is not shared.</div>
+      </div>
+      <div class="small-muted">© <span id="year"></span> SAAB RTC Hyderabad</div>
+    </footer>
+  </div>
+
+  <!-- Help modal -->
+  <div id="modalBackdrop" class="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal" role="document">
+      <h3 id="modalTitle">How to check result</h3>
+      <div style="margin-top:8px" id="modalContent">
+        <ol>
+          <li>Select your batch from the Batch dropdown.</li>
+          <li>Select document type: Admit Card or Marks Certificate.</li>
+          <li>Enter your CNIC in the format <code>12345-6789102-3</code>.</li>
+          <li>Click Download to open PDF or Print to open PDF and send to printer.</li>
+        </ol>
+      </div>
+      <div style="display:flex;justify-content:flex-end;margin-top:12px">
+        <button class="btn help" id="modalClose">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* ---------------------------
+       Localization strings (EN & URDU)
+       Keys below used to swap UI text instantly.
+       Keep keys small & consistent.
+       ---------------------------*/
+    const L = {
+      en: {
+        brandTitle: "SHAHEED ABDUL AZIZ BULLO",
+        brandSub: "RECRUIT TRAINING CENTER HYDERABAD",
+        subtitleTitle: "Result & Admit Card Portal",
+        subtitleSub: "Final Result of LSC Batch 01/2025 — Print friendly",
+        lastUpdatedLabel: "Last updated:",
+        searchTitle: "Find Your Admit Card / Marks",
+        searchSub: "Select batch, enter CNIC and download or print",
+        lblBatch: "Batch",
+        lblDoc: "Document",
+        lblCNIC: "CNIC",
+        placeholderCNIC: "12345-6789102-3",
+        download: "Download",
+        print: "Print",
+        howTo: "How to use",
+        modalTitle: "How to check result",
+        modalContent: `<ol>
+          <li>Select your batch from the Batch dropdown.</li>
+          <li>Select document type: Admit Card or Marks Certificate.</li>
+          <li>Enter your CNIC in the format <code>12345-6789102-3</code>.</li>
+          <li>Click Download to open PDF or Print to open PDF and send to printer.</li>
+        </ol>`,
+        msgSelectBatch: "⚠ Please select a batch.",
+        msgEnterCNIC: "⚠ Please enter CNIC number.",
+        msgNotFound: "❌ Document not found for entered CNIC.",
+        msgDownloadStarted: "✅ Download started!",
+        msgOpeningPrint: "✅ Opening for print...",
+        msgError: "⚠ Error loading document. Try again.",
+        statsTitle: "Batch Overview",
+        privacy: "Your CNIC is used only for verification. Data is not shared.",
+        support: "For support: moh…@gmail.com | +92-306-0384231"
+      },
+      ur: {
+        brandTitle: "شہید عبدالاعز بذلو",
+        brandSub: "ریکرُوٹ ٹریننگ سینٹر حیدرآباد",
+        subtitleTitle: "نتائج و ایڈم کارڈ پورٹل",
+        subtitleSub: "LSC بیج 01/2025 - فائنل نتیجہ — پرنٹ دوستانہ",
+        lastUpdatedLabel: "تازہ کاری:",
+        searchTitle: "اپنا ایڈم کارڈ / مارکس تلاش کریں",
+        searchSub: "بیچ منتخب کریں، CNIC درج کریں اور ڈاؤن لوڈ یا پرنٹ کریں",
+        lblBatch: "بیچ",
+        lblDoc: "دستاویز",
+        lblCNIC: "شناختی کارڈ (CNIC)",
+        placeholderCNIC: "12345-6789102-3",
+        download: "ڈاؤن لوڈ",
+        print: "پرنٹ",
+        howTo: "استعمال کرنے کا طریقہ",
+        modalTitle: "نتیجہ کیسے چیک کریں",
+        modalContent: `<ol dir="rtl">
+          <li>بیچ منتخب کریں۔</li>
+          <li>دستاویز کا انتخاب کریں: ایڈم کارڈ یا مارکس سرٹیفکیٹ۔</li>
+          <li>CNIC درج کریں، مثال: <code>12345-6789102-3</code>.</li>
+          <li>ڈاؤن لوڈ پر کلک کریں یا پرنٹ کر کے اپنی مارک شیٹ حاصل کریں۔</li>
+        </ol>`,
+        msgSelectBatch: "⚠ براہِ کرم بیچ منتخب کریں۔",
+        msgEnterCNIC: "⚠ براہِ کرم CNIC درج کریں۔",
+        msgNotFound: "❌ اس CNIC کے لیے دستاویز موجود نہیں۔",
+        msgDownloadStarted: "✅ ڈاؤن لوڈ شروع ہوگیا!",
+        msgOpeningPrint: "✅ پرنٹ کے لیے کھولا جا رہا ہے...",
+        msgError: "⚠ دستاویز لوڈ کرنے میں مسئلہ۔ دوبارہ کوشش کریں۔",
+        statsTitle: "بیچ کا حال",
+        privacy: "آپ کا CNIC صرف تصدیق کے لیے استعمال ہوتا ہے۔ ڈیٹا شیئر نہیں کیا جاتا۔",
+        support: "سپورٹ: moh…@gmail.com | +92-306-0384231"
+      }
+    };
+
+    // initial language
+    let LANG = 'en';
+
+    // DOM refs
+    const btnEN = document.getElementById('btn-en');
+    const btnUR = document.getElementById('btn-ur');
+    const yearEl = document.getElementById('year');
+    const updatedDateEl = document.getElementById('updated-date');
+
+    // fill static date
+    yearEl.textContent = new Date().getFullYear();
+    // simulated last updated (you can set dynamically)
+    updatedDateEl.textContent = new Date().toLocaleDateString();
+
+    // function to switch language
+    function switchLang(lang){
+      LANG = lang;
+      // active classes for flags
+      btnEN.classList.toggle('active', lang==='en');
+      btnUR.classList.toggle('active', lang==='ur');
+
+      // swap text nodes
+      const s = L[lang];
+
+      document.getElementById('brand-title').textContent = s.brandTitle;
+      document.getElementById('brand-sub').textContent = s.brandSub;
+      document.getElementById('subtitle-title').textContent = s.subtitleTitle;
+      document.getElementById('subtitle-sub').textContent = s.subtitleSub;
+      document.getElementById('search-title').textContent = s.searchTitle;
+      document.getElementById('search-sub').textContent = s.searchSub;
+      document.getElementById('lbl-batch').textContent = s.lblBatch;
+      document.getElementById('lbl-doc').textContent = s.lblDoc;
+      document.getElementById('lbl-cnic').textContent = s.lblCNIC;
+      document.getElementById('btnDownloadText').textContent = s.download;
+      document.getElementById('btnPrintText').textContent = s.print;
+      document.getElementById('btnHelpText').textContent = s.howTo;
+      document.getElementById('modalTitle').textContent = s.modalTitle;
+
+      // help modal content (safe html)
+      document.getElementById('modalContent').innerHTML = s.modalContent;
+
+      // placeholder
+      document.getElementById('rollNo').placeholder = s.placeholderCNIC;
+
+      // stats and privacy etc
+      document.getElementById('stats-title').textContent = s.statsTitle;
+      // notice section (urdu always kept in Urdu font; show translation when EN selected)
+      const notice = document.getElementById('noticeUrdu');
+      if(lang === 'en'){
+        // show english translation below (light)
+        notice.style.direction = 'ltr';
+        notice.style.textAlign = 'left';
+        notice.style.fontFamily = 'var(--font-ui)';
+        notice.innerHTML = `<strong>Important Notice:</strong><br />
+          Final marksheets for Lower School Course <strong>LSC/03/2025</strong> will be available online on graduation day. Please download or print your marksheet from this portal on that day.<br />
+          <div style="margin-top:8px;font-size:0.9rem;color:var(--muted);direction:ltr;text-align:left">
+            For support: <a href="mailto:mohsinhyd16@gmail.com" style="color:var(--accent);text-decoration:none">mohsinhyd16@gmail.com</a> | +92-306-0384231
+          </div>`;
+      } else {
+        notice.style.direction = 'rtl';
+        notice.style.textAlign = 'right';
+        notice.style.fontFamily = 'var(--font-urdu)';
+        notice.innerHTML = `<strong>اہم اطلاع:</strong><br />
+          لوئر اسکول کورس بیج <strong>LSC/03/2025</strong> کی مارک شیٹس فائنل امتحانات کے بعد گریجویشن کی تاریخ کو آن لائن دستیاب ہوں گی۔<br />
+          براہِ کرم اسی پورٹل سے اپنی مارک شیٹ اس دن <strong>ڈاؤن لوڈ یا پرنٹ</strong> کریں۔<br />
+          <div style="margin-top:8px;font-size:0.9rem;color:var(--muted);direction:ltr;text-align:left">
+            For support: <a href="mailto:mohsinhyd16@gmail.com" style="color:var(--accent);text-decoration:none">mohsinhyd16@gmail.com</a> | +92-306-0384231
+          </div>`;
+      }
+
+      // message reset
+      setMessage('', '');
+    }
+
+    // initial call
+    switchLang(LANG);
+
+    // language buttons
+    btnEN.addEventListener('click', ()=> switchLang('en'));
+    btnUR.addEventListener('click', ()=> switchLang('ur'));
+
+    // keyboard accessible
+    btnEN.addEventListener('keydown', e => { if(e.key==='Enter' || e.key===' ') switchLang('en') });
+    btnUR.addEventListener('keydown', e => { if(e.key==='Enter' || e.key===' ') switchLang('ur') });
+
+    /* ---------------------------
+       CNIC auto-format logic
+       only numeric allowed, format 5-7-1
+       ---------------------------*/
+    const rollInput = document.getElementById('rollNo');
+    rollInput.addEventListener('input', function(){
+      let val = this.value.replace(/[^0-9]/g, '');
+      if(val.length <=5){
+        this.value = val;
+      } else if(val.length <=12){
+        this.value = val.slice(0,5) + '-' + val.slice(5);
+      } else {
+        this.value = val.slice(0,5) + '-' + val.slice(5,12) + '-' + val.slice(12,13);
+      }
+    });
+
+    /* ---------------------------
+       Helper: set message
+       type: 'error' | 'success' | 'info' or ''
+       ---------------------------*/
+    const msgArea = document.getElementById('messageArea');
+    function setMessage(text, type){
+      msgArea.innerHTML = '';
+      if(!text) return;
+      const div = document.createElement('div');
+      div.className = 'message ' + (type==='error' ? 'msg-error' : type==='success' ? 'msg-success' : 'msg-info');
+      div.innerHTML = `<span style="font-weight:700">${text}</span>`;
+      msgArea.appendChild(div);
+    }
+
+    /* ---------------------------
+       Modal: help
+       ---------------------------*/
+    const modalBackdrop = document.getElementById('modalBackdrop');
+    document.getElementById('btnHelp').addEventListener('click', ()=> {
+      modalBackdrop.style.display = 'flex';
+      modalBackdrop.setAttribute('aria-hidden','false');
+      document.getElementById('modalClose').focus();
+    });
+    document.getElementById('modalClose').addEventListener('click', ()=> {
+      modalBackdrop.style.display = 'none';
+      modalBackdrop.setAttribute('aria-hidden','true');
+    });
+    modalBackdrop.addEventListener('click', (e)=> {
+      if(e.target === modalBackdrop){
+        modalBackdrop.style.display='none';
+        modalBackdrop.setAttribute('aria-hidden','true');
+      }
+    });
+
+    /* ---------------------------
+       Download / Print flow
+       - constructs fileUrl same as your logic
+       - fetch HEAD to check existence
+       ---------------------------*/
+    const btnDownload = document.getElementById('btnDownload');
+    const btnPrint = document.getElementById('btnPrint');
+    const loader = document.getElementById('loader');
+
+    async function handleDocument(action){
+      // UI text based on language
+      const text = L[LANG];
+      const batch = document.getElementById('batch').value;
+      const rollNo = document.getElementById('rollNo').value.trim();
+      const docType = document.querySelector("input[name='doctype']:checked").value;
+
+      // reset message
+      setMessage('', '');
+
+      if(!batch){
+        setMessage(text.msgSelectBatch, 'error');
+        return;
+      }
+      if(!rollNo || rollNo.length < 15){
+        setMessage(text.msgEnterCNIC, 'error');
+        return;
+      }
+
+      const encoded = encodeURIComponent(rollNo);
+      const fileUrl = `https://saab-rtc.github.io/admit-card-portal/${docType}/${batch}/${encoded}.pdf`;
+
+      // show loader
+      loader.style.display = 'inline-block';
+      try{
+        // HEAD request to check existence
+        const res = await fetch(fileUrl, { method: 'HEAD' });
+        loader.style.display = 'none';
+        if(res.ok){
+          if(action === 'download'){
+            window.open(fileUrl, '_blank');
+            setMessage(text.msgDownloadStarted, 'success');
+          } else {
+            const pdfWindow = window.open(fileUrl, '_blank');
+            if(pdfWindow){ // try to auto-print when loaded
+              pdfWindow.onload = () => { try{ pdfWindow.print(); }catch(e){} }
+            }
+            setMessage(text.msgOpeningPrint, 'success');
+          }
+        } else {
+          setMessage(text.msgNotFound, 'error');
+        }
+      } catch(err){
+        loader.style.display = 'none';
+        setMessage(text.msgError, 'error');
+      }
+    }
+
+    btnDownload.addEventListener('click', ()=> handleDocument('download'));
+    btnPrint.addEventListener('click', ()=> handleDocument('print'));
+
+    // keyboard accessible (Enter) for CNIC input to attempt download
+    rollInput.addEventListener('keydown', (e) => {
+      if(e.key === 'Enter'){
+        handleDocument('download');
+      }
+    });
+
+    /* ---------------------------
+       Small polish: set initial placeholder & language-aware labels
+       ---------------------------*/
+    (function initTexts(){
+      switchLang(LANG);
+      // set placeholder option for select
+      const sel = document.getElementById('batch');
+      sel.options[0].text = LANG === 'en' ? '-- Select Batch --' : '-- بیچ منتخب کریں --';
+    })();
+
+    /* ---------------------------
+       Accessibility: focus outline visible on keyboard nav
+       ---------------------------*/
+    document.addEventListener('keydown', (e) => {
+      if(e.key === 'Tab'){
+        document.body.classList.add('show-focus');
+      }
+    });
+  </script>
+</body>
+</html>
